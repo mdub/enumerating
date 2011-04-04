@@ -1,8 +1,10 @@
 require "spec_helper"
-require "uniq_enumerator"
+require "enumerator_fu/uniq_enumerator"
 
-describe UniqEnumerator do
+describe EnumeratorFu::UniqEnumerator do
 
+  include EnumeratorFu
+  
   context "without a block" do
 
     before do
