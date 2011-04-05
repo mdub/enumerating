@@ -13,20 +13,8 @@ describe EnumeratorFu::Zip do
     @zip.to_a.should == [[1,2,5], [3,4,8], [6,7,nil]]
   end
 
-  failing_enumerable = Class.new do
-
-    include Enumerable
-    
-    def each
-      yield 1
-      yield 2
-      raise "hell"
-    end
-    
-  end
-  
   it "is lazy" do
-    @zip = Zip.new([%w(a b c), failing_enumerable.new])
+    @zip = Zip.new([%w(a b c), FailingEnumerable.new([1,2])])
     @zip.take(2).should == [["a", 1], ["b", 2]]
     lambda do
       @zip.take(3)
