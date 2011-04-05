@@ -19,5 +19,19 @@ describe EnumeratorFu::MergeEnumerator do
     end
 
   end
+
+  context "with a block" do
+
+    before do
+      @array1 = %w(cccc dd a)
+      @array2 = %w(eeeee bbb)
+      @merge_enum = MergeEnumerator.new([@array1, @array2]) { |s| -s.length }
+    end
+
+    it "uses the block to determine order" do
+      @merge_enum.to_a.should == %w(eeeee cccc bbb dd a)
+    end
+        
+  end
   
 end
