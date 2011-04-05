@@ -1,9 +1,9 @@
 require "spec_helper"
 require "enumerator_fu/merge"
 
-describe EnumeratorFu::Merge do
+describe EnumerableFu::Merge do
 
-  include EnumeratorFu
+  include EnumerableFu
 
   context "without a block" do
 

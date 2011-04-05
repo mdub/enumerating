@@ -1,4 +1,4 @@
-module EnumeratorFu
+module EnumerableFu
   
   class Merge
     

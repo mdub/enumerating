@@ -1,6 +1,6 @@
 require 'set'
 
-module EnumeratorFu
+module EnumerableFu
 
   class UniqFilter
 

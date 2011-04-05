@@ -1,9 +1,9 @@
 require "spec_helper"
 require "enumerator_fu/uniq_filter"
 
-describe EnumeratorFu::UniqFilter do
+describe EnumerableFu::UniqFilter do
 
-  include EnumeratorFu
+  include EnumerableFu
   
   context "without a block" do
 
