@@ -11,7 +11,7 @@ describe EnumerableFu::Merge do
       @array1 = [1,3,6]
       @array2 = [2,4,7]
       @array3 = [5,8]
-      @merge = Merge.new([@array1, @array2, @array3].map(&:to_enum))
+      @merge = Merge.new([@array1, @array2, @array3])
     end
 
     it "merges multiple Enumerators" do
@@ -37,7 +37,7 @@ describe EnumerableFu::Merge do
   it "is lazy" do
     @enum1 = [1,3]
     @enum2 = FailingEnumerable.new([2,4])
-    @merge = Merge.new([@enum1, @enum2].map(&:to_enum))
+    @merge = Merge.new([@enum1, @enum2])
     @merge.take(4).should == [1,2,3,4]
     lambda do
       @merge.take(5)
