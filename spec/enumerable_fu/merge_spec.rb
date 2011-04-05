@@ -1,5 +1,5 @@
 require "spec_helper"
-require "enumerator_fu/merge"
+require "enumerable_fu/merge"
 
 describe EnumerableFu::Merge do
 

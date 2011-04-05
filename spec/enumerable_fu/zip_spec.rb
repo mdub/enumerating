@@ -1,5 +1,5 @@
 require "spec_helper"
-require "enumerator_fu/zip"
+require "enumerable_fu/zip"
 
 describe EnumerableFu::Zip do
 
