@@ -1,7 +1,7 @@
 require "spec_helper"
-require "enumerator_fu/merge_enumerator"
+require "enumerator_fu/merge"
 
-describe EnumeratorFu::MergeEnumerator do
+describe EnumeratorFu::Merge do
 
   include EnumeratorFu
   
@@ -11,7 +11,7 @@ describe EnumeratorFu::MergeEnumerator do
       @array1 = [1,3,6]
       @array2 = [2,4,7]
       @array3 = [5,8]
-      @merge_enum = MergeEnumerator.new([@array1, @array2, @array3].map(&:to_enum))
+      @merge_enum = Merge.new([@array1, @array2, @array3].map(&:to_enum))
     end
 
     it "merges multiple Enumerators" do
@@ -25,7 +25,7 @@ describe EnumeratorFu::MergeEnumerator do
     before do
       @array1 = %w(cccc dd a)
       @array2 = %w(eeeee bbb)
-      @merge_enum = MergeEnumerator.new([@array1, @array2]) { |s| -s.length }
+      @merge_enum = Merge.new([@array1, @array2]) { |s| -s.length }
     end
 
     it "uses the block to determine order" do

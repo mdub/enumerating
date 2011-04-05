@@ -1,6 +1,6 @@
 module EnumeratorFu
   
-  class MergeEnumerator
+  class Merge
     
     def initialize(enumerators, &transformer)
       @enumerators = enumerators.map(&:to_enum)

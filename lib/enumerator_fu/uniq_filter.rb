@@ -2,7 +2,7 @@ require 'set'
 
 module EnumeratorFu
 
-  class UniqEnumerator
+  class UniqFilter
 
     include Enumerable
 
