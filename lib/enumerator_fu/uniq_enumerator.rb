@@ -4,31 +4,27 @@ module EnumeratorFu
 
   class UniqEnumerator
 
-    def initialize(base_enum, &transform)
-      @base_enum = base_enum.to_enum
-      @transform = transform
-    end
-
     include Enumerable
 
+    def initialize(enumerator, &distinctor)
+      @enumerator = enumerator
+      @distinctor = distinctor
+      @seen = Set.new
+    end
+
     def each
-      @base_enum.each do |value|
-        yield value unless seen?(value)
+      return to_enum unless block_given?
+      @enumerator.each do |item|
+        item_key = distinguish(item)
+        yield(item) if @seen.add?(item_key)
       end
     end
 
     private
 
-    def seen?(value)
-      transformed_value = if @transform
-        @transform.call(value)
-      else
-        value
-      end
-      @seen ||= Set.new
-      previously_seen = @seen.member?(transformed_value)
-      @seen << transformed_value
-      previously_seen
+    def distinguish(item)
+      return item unless @distinctor
+      @distinctor.call(item)
     end
 
   end
