@@ -1,9 +1,9 @@
 require "spec_helper"
-require "enumerable_fu/merge"
+require "enumerable_fu/mixers/merge"
 
-describe EnumerableFu::Merge do
+describe EnumerableFu::Mixers::Merge do
 
-  include EnumerableFu
+  include EnumerableFu::Mixers
 
   context "without a block" do
 

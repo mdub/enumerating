@@ -1,9 +1,9 @@
 require "spec_helper"
-require "enumerable_fu/zip"
+require "enumerable_fu/mixers/zip"
 
-describe EnumerableFu::Zip do
+describe EnumerableFu::Mixers::Zip do
 
-  include EnumerableFu
+  include EnumerableFu::Mixers
 
   it "zips together multiple Enumerables" do
     @array1 = [1,3,6]
