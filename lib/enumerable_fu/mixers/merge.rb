@@ -3,16 +3,16 @@ module EnumerableFu
 
     class Merge
 
-      def initialize(enumerators, &transformer)
-        @enumerators = enumerators.map(&:to_enum)
+      include Enumerable
+
+      def initialize(enumerables, &transformer)
+        @enumerables = enumerables
         @transformer = transformer
       end
 
-      include Enumerable
-
       def each(&block)
         return to_enum unless block_given?
-        Generator.new(@enumerators.dup, @transformer).each(&block)
+        Generator.new(@enumerables.map(&:to_enum), @transformer).each(&block)
       end
 
       class Generator

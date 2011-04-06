@@ -3,15 +3,16 @@ module EnumerableFu
 
     class Zip
 
-      def initialize(enumerators)
-        @enumerators = enumerators.map(&:to_enum)
-      end
-
       include Enumerable
 
+      def initialize(enumerables)
+        @enumerables = enumerables
+      end
+
       def each
+        enumerators = @enumerables.map(&:to_enum)
         while true
-          chunk = @enumerators.map do |enumerator|
+          chunk = enumerators.map do |enumerator|
             begin
               enumerator.next
             rescue StopIteration
