@@ -1,7 +1,7 @@
 require "spec_helper"
-require "enumerable_fu/uniq_filter"
+require "enumerable_fu/filters/uniq"
 
-describe EnumerableFu::UniqFilter do
+describe EnumerableFu::Filters::Uniq do
 
   include EnumerableFu
   
@@ -9,7 +9,7 @@ describe EnumerableFu::UniqFilter do
 
     before do
       @array = [1,3,2,4,3,5,4,6]
-      @uniq = UniqFilter.new(@array)
+      @uniq = Filters::Uniq.new(@array)
     end
 
     it "removes duplicates" do
@@ -22,7 +22,7 @@ describe EnumerableFu::UniqFilter do
 
     before do
       @array = %w(A1 A2 B1 A3 C1 B2 C2)
-      @uniq = UniqFilter.new(@array) { |s| s[0,1] }
+      @uniq = Filters::Uniq.new(@array) { |s| s[0,1] }
     end
 
     it "uses the block to derive identity" do
@@ -33,7 +33,7 @@ describe EnumerableFu::UniqFilter do
   
   it "is lazy" do
     @enum = FailingEnumerable.new([1,2,3])
-    @uniq = UniqFilter.new(@enum)
+    @uniq = Filters::Uniq.new(@enum)
     @uniq.take(3).should == [1,2,3]
     lambda do
       @uniq.take(4)
