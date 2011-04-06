@@ -18,7 +18,7 @@ describe EnumerableFu::Mixers::Zip do
     @zip.take(2).should == [["a", 1], ["b", 2]]
     lambda do
       @zip.take(3)
-    end.should raise_error("hell")
+    end.should raise_error(EndOfTheLine)
   end
 
 end

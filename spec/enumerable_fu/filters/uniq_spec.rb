@@ -37,7 +37,7 @@ describe EnumerableFu::Filters::Uniq do
     @uniq.take(3).should == [1,2,3]
     lambda do
       @uniq.take(4)
-    end.should raise_error("hell")
+    end.should raise_error(EndOfTheLine)
   end
   
 end

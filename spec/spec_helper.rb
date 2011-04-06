@@ -7,6 +7,8 @@ RSpec.configure do |config|
 
 end
 
+class EndOfTheLine < StandardError; end
+
 class FailingEnumerable
 
   include Enumerable
@@ -17,7 +19,7 @@ class FailingEnumerable
 
   def each(&block)
     @source.each(&block)
-    raise "hell"
+    raise EndOfTheLine
   end
 
 end

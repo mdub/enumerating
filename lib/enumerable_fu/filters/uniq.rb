@@ -7,15 +7,15 @@ module EnumerableFu
 
       include Enumerable
 
-      def initialize(enumerator, &distinctor)
-        @enumerator = enumerator
+      def initialize(source, &distinctor)
+        @source = source
         @distinctor = distinctor
         @seen = Set.new
       end
 
       def each
         return to_enum unless block_given?
-        @enumerator.each do |item|
+        @source.each do |item|
           item_key = distinguish(item)
           yield(item) if @seen.add?(item_key)
         end
