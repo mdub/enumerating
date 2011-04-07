@@ -1,22 +1,14 @@
+require 'enumerable_fu/filters/abstract'
+
 module EnumerableFu
   module Filters
     
-    class Select
-
-      include Enumerable
-
-      def initialize(source, &selector)
-        unless selector
-          raise ArgumentError, "block expected"
-        end
-        @source = source
-        @selector = selector
-      end
+    class Select < Abstract
 
       def each
         return to_enum unless block_given?
-        @source.each do |item|
-          yield(item) if @selector.call(item)
+        source.each do |item|
+          yield(item) if transform(item)
         end
       end
 

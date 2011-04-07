@@ -1,31 +1,21 @@
+require 'enumerable_fu/filters/abstract'
 require 'set'
 
 module EnumerableFu
   module Filters
 
-    class Uniq
+    class Uniq < Abstract
 
-      include Enumerable
-
-      def initialize(source, &distinctor)
-        @source = source
-        @distinctor = distinctor
+      def initialize(*args)
+        super
         @seen = Set.new
       end
 
       def each
         return to_enum unless block_given?
-        @source.each do |item|
-          item_key = distinguish(item)
-          yield(item) if @seen.add?(item_key)
+        source.each do |item|
+          yield(item) if @seen.add?(transform(item))
         end
-      end
-
-      private
-
-      def distinguish(item)
-        return item unless @distinctor
-        @distinctor.call(item)
       end
 
     end
