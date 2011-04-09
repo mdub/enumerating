@@ -16,3 +16,11 @@ module EnumerableFu
     
   end
 end
+
+module Enumerable
+  
+  def selecting(&block)
+    EnumerableFu::Filters::Select.new(self, &block)
+  end
+
+end

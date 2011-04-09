@@ -1,10 +1,10 @@
 require "spec_helper"
-require "enumerable_fu/filters/collect"
+require "enumerable_fu"
 
-describe EnumerableFu::Filters::Collect do
+describe Enumerable, "#collecting" do
 
   it "transforms items" do
-    @collect = EnumerableFu::Filters::Collect.new([1,2,3]) { |x| x * 2 }
+    @collect = [1,2,3].collecting { |x| x * 2 }
     @collect.to_a.should == [2,4,6]
   end
 

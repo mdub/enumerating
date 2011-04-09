@@ -16,3 +16,11 @@ module EnumerableFu
     
   end
 end
+
+module Enumerable
+  
+  def rejecting(&block)
+    EnumerableFu::Filters::Reject.new(self, &block)
+  end
+  
+end

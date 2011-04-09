@@ -10,7 +10,7 @@ module Enumerable
   alias :lazing_collect :collecting
 end
 
-require "enumerable_fu/core_ext/enumerable"
+require "enumerable_fu"
 
 array = (1..100000).to_a
 

@@ -22,3 +22,13 @@ module EnumerableFu
 
   end
 end
+
+module Enumerable
+  
+  def uniqing(&block)
+    EnumerableFu::Filters::Uniq.new(self, &block)
+  end
+
+  alias :deduping :uniqing
+  
+end
