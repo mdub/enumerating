@@ -16,9 +16,6 @@ describe EnumerableFu::Mixers::Zip, :needs_enumerators => true do
   it "is lazy" do
     @zip = Zip.new([%w(a b c), [1,2].with_time_bomb])
     @zip.take(2).should == [["a", 1], ["b", 2]]
-    lambda do
-      @zip.take(3)
-    end.should raise_error(Boom)
   end
 
 end

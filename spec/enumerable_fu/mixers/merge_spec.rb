@@ -39,9 +39,6 @@ describe EnumerableFu::Mixers::Merge, :needs_enumerators => true do
     @enum2 = [2,4].with_time_bomb
     @merge = Merge.new([@enum1, @enum2])
     @merge.take(4).should == [1,2,3,4]
-    lambda do
-      @merge.take(5)
-    end.should raise_error(Boom)
   end
 
 end
