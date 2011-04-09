@@ -3,8 +3,9 @@ require "rubygems"
 require 'rspec'
 
 RSpec.configure do |config|
-
-
+  unless defined?(::Enumerator)
+    config.filter_run_excluding :needs_enumerators => true
+  end
 end
 
 class EndOfTheLine < StandardError; end
