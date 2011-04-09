@@ -9,11 +9,11 @@ describe EnumerableFu::Filters::Select do
   end
 
   it "is lazy" do
-    @select = FailingEnumerable.new([1,2,3]).selecting { |x| x.even? }
+    @select = [1,2,3].with_time_bomb.selecting { |x| x.even? }
     @select.take(1)
     lambda do
       @select.take(2)
-    end.should raise_error(EndOfTheLine)
+    end.should raise_error(Boom)
   end
 
 end

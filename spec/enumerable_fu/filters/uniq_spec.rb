@@ -30,12 +30,11 @@ describe EnumerableFu::Filters::Uniq do
   end
   
   it "is lazy" do
-    @enum = FailingEnumerable.new([1,2,3])
-    @uniq = @enum.deduping
+    @uniq = [1,2,3].with_time_bomb.deduping
     @uniq.take(3).should == [1,2,3]
     lambda do
       @uniq.take(4)
-    end.should raise_error(EndOfTheLine)
+    end.should raise_error(Boom)
   end
   
 end

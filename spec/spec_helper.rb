@@ -8,9 +8,9 @@ RSpec.configure do |config|
   end
 end
 
-class EndOfTheLine < StandardError; end
+class Boom < StandardError; end
 
-class FailingEnumerable
+class WithTimeBomb
 
   include Enumerable
 
@@ -20,7 +20,16 @@ class FailingEnumerable
 
   def each(&block)
     @source.each(&block)
-    raise EndOfTheLine
+    raise Boom
   end
 
+end
+
+module Enumerable
+  
+  # extend an Enumerable to throw an exception after last element
+  def with_time_bomb
+    WithTimeBomb.new(self)
+  end
+  
 end
