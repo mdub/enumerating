@@ -1,7 +1,7 @@
 require "spec_helper"
 require "enumerable_fu/mixers/zip"
 
-describe EnumerableFu::Mixers::Zip do
+describe EnumerableFu::Mixers::Zip, :needs_enumerators => true do
 
   include EnumerableFu::Mixers
 

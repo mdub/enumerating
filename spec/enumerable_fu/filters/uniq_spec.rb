@@ -3,13 +3,11 @@ require "enumerable_fu/filters/uniq"
 
 describe EnumerableFu::Filters::Uniq do
 
-  include EnumerableFu::Filters
-  
   context "without a block" do
 
     before do
       @array = [1,3,2,4,3,5,4,6]
-      @uniq = Uniq.new(@array)
+      @uniq = EnumerableFu::Filters::Uniq.new(@array)
     end
 
     it "removes duplicates" do
@@ -22,7 +20,7 @@ describe EnumerableFu::Filters::Uniq do
 
     before do
       @array = %w(A1 A2 B1 A3 C1 B2 C2)
-      @uniq = Uniq.new(@array) { |s| s[0,1] }
+      @uniq = EnumerableFu::Filters::Uniq.new(@array) { |s| s[0,1] }
     end
 
     it "uses the block to derive identity" do
@@ -33,7 +31,7 @@ describe EnumerableFu::Filters::Uniq do
   
   it "is lazy" do
     @enum = FailingEnumerable.new([1,2,3])
-    @uniq = Uniq.new(@enum)
+    @uniq = EnumerableFu::Filters::Uniq.new(@enum)
     @uniq.take(3).should == [1,2,3]
     lambda do
       @uniq.take(4)

@@ -1,7 +1,7 @@
 require "spec_helper"
 require "enumerable_fu/mixers/merge"
 
-describe EnumerableFu::Mixers::Merge do
+describe EnumerableFu::Mixers::Merge, :needs_enumerators => true do
 
   include EnumerableFu::Mixers
 
