@@ -13,7 +13,6 @@ Gem::Specification.new do |s|
 
   s.summary       = %{Lazy extensions to Enumerable}
   s.description   = %{EnumerableFu extends Enumerable with "lazy" versions of various operations, allowing streamed processing of large (or even infinite) collections.}
-EOF
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
