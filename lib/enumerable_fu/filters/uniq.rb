@@ -25,10 +25,16 @@ end
 
 module Enumerable
   
-  def uniqing(&block)
-    EnumerableFu::Filters::Uniq.new(self, &block)
+  def uniqing
+    EnumerableFu::Filters::Uniq.new(self)
   end
 
   alias :deduping :uniqing
+
+  def uniqing_by(&block)
+    EnumerableFu::Filters::Uniq.new(self, &block)
+  end
+  
+  alias :deduping_by :uniqing_by
   
 end
