@@ -59,11 +59,11 @@ end
 
 class << Enumerable
   
-  def merging(enumerables)
+  def merging(*enumerables)
     EnumerableFu::Merger.new(enumerables)
   end
 
-  def merging_by(enumerables, &block)
+  def merging_by(*enumerables, &block)
     EnumerableFu::Merger.new(enumerables, &block)
   end
   

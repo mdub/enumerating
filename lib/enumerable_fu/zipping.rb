@@ -29,7 +29,7 @@ end
 
 class << Enumerable
 
-  def zipping(enumerables)
+  def zipping(*enumerables)
     EnumerableFu::Zipper.new(enumerables)
   end
 
