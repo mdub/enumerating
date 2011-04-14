@@ -33,3 +33,5 @@ module Enumerable
   end
   
 end
+
+require "enumerable_fu"

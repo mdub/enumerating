@@ -1,7 +1,6 @@
 require "spec_helper"
-require "enumerable_fu/filters/select"
 
-describe EnumerableFu::Filters::Select do
+describe Enumerable, "#selecting" do
 
   it "excludes items that don't pass the predicate" do
     (1..6).selecting { |x| x.even? }.to_a.should == [2,4,6]

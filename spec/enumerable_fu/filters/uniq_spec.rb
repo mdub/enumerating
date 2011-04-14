@@ -1,5 +1,4 @@
 require "spec_helper"
-require "enumerable_fu/filters/uniq"
 
 describe EnumerableFu::Filters::Uniq do
 

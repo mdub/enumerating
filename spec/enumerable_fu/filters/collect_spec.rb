@@ -1,5 +1,4 @@
 require "spec_helper"
-require "enumerable_fu"
 
 describe Enumerable, "#collecting" do
 
