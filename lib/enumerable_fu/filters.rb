@@ -1,4 +1,4 @@
-require 'enumerable_fu/filters/uniq'
+require 'set'
 
 module EnumerableFu
 
@@ -45,6 +45,28 @@ module Enumerable
       end
     end
   end
+  
+  def uniqing
+    EnumerableFu::Filter.new do |output|
+      seen = Set.new
+      each do |element|
+        output.call(element) if seen.add?(element)
+      end
+    end
+  end
+
+  alias :deduping :uniqing
+
+  def uniqing_by
+    EnumerableFu::Filter.new do |output|
+      seen = Set.new
+      each do |element|
+        output.call(element) if seen.add?(yield element)
+      end
+    end
+  end
+  
+  alias :deduping_by :uniqing_by
   
 end
 
