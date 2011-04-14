@@ -1,2 +1,2 @@
-require 'enumerable_fu/filters'
+require 'enumerable_fu/filtering'
 require 'enumerable_fu/mixers'
