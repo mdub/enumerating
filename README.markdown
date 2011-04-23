@@ -30,21 +30,21 @@ Unlike the original methods, the "...ing" variants each return an immutable Enum
 Mixers
 ------
 
-`Enumerable.zipping` pulls elements from a number of Enumerables in parallel, yielding each group.
+`EnumerableFu.zipping` pulls elements from a number of Enumerables in parallel, yielding each group.
 
     array1 = [1,3,6]
     array2 = [2,4,7]
-    Enumerable.zipping(array1, array2)      # generates: [1,2], [3,4], [6,7]
+    EnumerableFu.zipping(array1, array2)    # generates: [1,2], [3,4], [6,7]
 
-`Enumerable.merging` merges multiple Enumerables, preserving sort-order.  The inputs are assumed to be sorted already.
+`EnumerableFu.merging` merges multiple Enumerables, preserving sort-order.  The inputs are assumed to be sorted already.
 
     array1 = [1,4,5]
     array2 = [2,3,6]
-    Enumerable.merging(array1, array2)      # generates: 1, 2, 3, 4, 5, 6
+    EnumerableFu.merging(array1, array2)    # generates: 1, 2, 3, 4, 5, 6
 
-Variant `Enumerable.merging_by` uses a block to determine sort-order.
+Variant `EnumerableFu.merging_by` uses a block to determine sort-order.
 
     array1 = %w(a dd cccc)
     array2 = %w(eee bbbbb)
-    Enumerable.merging_by(array1, array2) { |x| x.length }
+    EnumerableFu.merging_by(array1, array2) { |x| x.length }
                                             # generates: %w(a dd eee cccc bbbbb)

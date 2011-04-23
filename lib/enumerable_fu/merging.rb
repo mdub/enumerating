@@ -57,7 +57,7 @@ module EnumerableFu
 
 end
 
-class << Enumerable
+class << EnumerableFu
   
   def merging(*enumerables)
     EnumerableFu::Merger.new(enumerables)

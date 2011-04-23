@@ -27,7 +27,7 @@ module EnumerableFu
 
 end
 
-class << Enumerable
+class << EnumerableFu
 
   def zipping(*enumerables)
     EnumerableFu::Zipper.new(enumerables)
