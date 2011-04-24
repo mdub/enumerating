@@ -1,42 +1,76 @@
 EnumerableFu
 ============
 
-"EnumerableFu" extends `Enumerable` with "lazy" versions of various operations, 
-allowing streamed processing of large (or even infinite) collections.
+Lazy "filtering" and transforming
+---------------------------------
 
-It also provides some interesting ways of combining Enumerables.
+EnumerableFu extends Enumerable with "lazy" versions of various common operations:
 
-Filters
--------
+* `#selecting` selects elements that pass a test block (like `Enumerable#select`)
+* `#rejecting` selects elements that fail a test block (like `Enumerable#reject`)
+* `#collecting` applies a transforming block to each element (like `Enumerable#collect`)
+* `#uniqing` discards duplicates (like `Enumerable#uniq`)
 
-`selecting` (cf. `select`, or `find_all`) returns each element for which the given block is true
+We say the "...ing" variants are "lazy", because they defer per-element processing until the result is used.  They return Enumerable "result proxy" objects, rather than Arrays, and only perform the actual filtering (or transformation) as the result proxy is enumerated.
 
-    (1..6).selecting { |x| x.even? }        # generates: 2, 4, 6
+Perhaps an example would help.  Consider the following snippet:
 
-`rejecting` (cf. `reject`) returns each element for which the given block is false:
+    >> (1..10).collect { |x| puts "#{x}^2 = #{x*x}"; x*x }.take_while { |x| x < 20 }
+    1^2 = 1
+    2^2 = 4
+    3^2 = 9
+    4^2 = 16
+    5^2 = 25
+    6^2 = 36
+    7^2 = 49
+    8^2 = 64
+    9^2 = 81
+    10^2 = 100
+    => [1, 4, 9, 16]
+    
+Here we use plain old `#collect` to square a bunch of numbers, and then grab the ones less than 20. We can do the same thing using `#collecting`, rather than `#collect`:
 
-    (1..6).rejecting { |x| x.even? }        # generates: 1, 3, 5
+    >> (1..10).collecting { |x| puts "#{x}^2 = #{x*x}"; x*x }.take_while { |x| x < 20 }
+    1^2 = 1
+    2^2 = 4
+    3^2 = 9
+    4^2 = 16
+    5^2 = 25
+    => [1, 4, 9, 16]
 
-`collecting` (cf. `collect`, or `map`) applies a block to each element:
+Same result, but notice how only the first five inputs were ever squared; just enough to find the first result above 20.
 
-    [1,2,3].collecting { |x| x*2 }          # generates: 2, 4, 6
+Lazy pipelines
+--------------
 
-`uniqing` (cf. `uniq`) returns unique elements:
+By combining two or more of the lazy operations provided by EnumerableFu, you can create an efficient "pipeline", e.g.
 
-    [2,1,2,3,2,1].uniqing                   # generates: 2, 1, 3
+    # enumerate all users
+    users = User.to_enum(:find_each)
 
-Unlike the original methods, the "...ing" variants each return an immutable Enumerable object, rather than an Array.  The actual processing is deferred until the result Enumerable is enumerated (e.g. with `each`), and elements are produced "just in time".
+    # where first and last names start with the same letter
+    users = users.selecting { |u| u.first_name[0] == u.last_name[0] }
 
-Mixers
-------
+    # grab their company (weeding out duplicates)
+    companies = users.collecting(&:company).uniqing
 
-`EnumerableFu.zipping` pulls elements from a number of Enumerables in parallel, yielding each group.
+    # resolve
+    companies.to_a              #=> ["Disney"]
+
+Because each processing step proceeds in parallel, without creation of intermediate collections (Arrays), you can efficiently operate on large (or even infinite) Enumerable collections.
+
+Lazy combination of Enumerables
+-------------------------------
+
+EnumerableFu also provides some interesting ways to combine several Enumerable collections to create a new collection.  Again, these operate "lazily".
+
+`EnumerableFu.zipping` pulls elements from a number of collections in parallel, yielding each group.
 
     array1 = [1,3,6]
     array2 = [2,4,7]
     EnumerableFu.zipping(array1, array2)    # generates: [1,2], [3,4], [6,7]
 
-`EnumerableFu.merging` merges multiple Enumerables, preserving sort-order.  The inputs are assumed to be sorted already.
+`EnumerableFu.merging` merges multiple collections, preserving sort-order.  The inputs are assumed to be sorted already.
 
     array1 = [1,4,5]
     array2 = [2,3,6]
