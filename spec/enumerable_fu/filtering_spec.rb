@@ -1,5 +1,17 @@
 require "spec_helper"
 
+module Enumerable
+  
+  unless method_defined?(:first)
+    def first
+      each do |first_item|
+        return first_item
+      end
+    end
+  end
+  
+end
+
 describe Enumerable do
 
   describe "#collecting" do
@@ -17,11 +29,11 @@ describe Enumerable do
   describe "#selecting" do
 
     it "excludes items that don't pass the predicate" do
-      (1..6).selecting { |x| x.even? }.to_a.should == [2,4,6]
+      (1..6).selecting { |x| x%2 == 0 }.to_a.should == [2,4,6]
     end
 
     it "is lazy" do
-      (1..6).with_time_bomb.selecting { |x| x.even? }.first == 2
+      (1..6).with_time_bomb.selecting { |x| x%2 == 0 }.first == 2
     end
 
   end
@@ -29,11 +41,11 @@ describe Enumerable do
   describe "#rejecting" do
 
     it "excludes items that do pass the predicate" do
-      (1..6).rejecting { |x| x.even? }.to_a.should == [1,3,5]
+      (1..6).rejecting { |x| x%2 == 0 }.to_a.should == [1,3,5]
     end
 
     it "is lazy" do
-      (1..6).with_time_bomb.rejecting { |x| x.even? }.first == 1
+      (1..6).with_time_bomb.rejecting { |x| x%2 == 0 }.first == 1
     end
 
   end
