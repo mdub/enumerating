@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
   s.email         = "mdub@dogbiscuit.org"
   s.homepage      = "http://github.com/mdub/enumerable_fu"
 
-  s.summary       = %{Lazy extensions to Enumerable}
-  s.description   = %{EnumerableFu extends Enumerable with "lazy" versions of various operations, allowing streamed processing of large (or even infinite) collections.}
+  s.summary       = %{Lazy filtering/transforming of Enumerable collections}
+  s.description   = %{EnumerableFu extends Enumerable with "lazy" versions of various operations, allowing streamed processing of large (or even infinite) collections.  Even in Ruby 1.8.x.}
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

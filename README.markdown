@@ -82,3 +82,20 @@ Variant `EnumerableFu.merging_by` uses a block to determine sort-order.
     array2 = %w(eee bbbbb)
     EnumerableFu.merging_by(array1, array2) { |x| x.length }
                                             # generates: %w(a dd eee cccc bbbbb)
+
+Same but different
+------------------
+
+There are numerous similar implementations of lazy operations on Enumerables.  A nod, in particular, to:
+
+* Greg Spurrier's gem "`lazing`" (from which EnumerableFu borrows the convention of using "..ing" to name lazy methods)
+* `Enumerable#defer` from the Ruby Facets library
+
+In the end, though, I felt the world deserved another.  EnumerableFu's selling point is that it's basic (filtering/transforming) operations work on any Ruby, whereas most of the other implementations depend on the availablity of Ruby 1.9's "`Enumerator`".  EnumerableFu has been tested on:
+
+* MRI 1.8.6
+* MRI 1.8.7
+* MRI 1.9.2
+* JRuby 1.5.3
+* JRuby 1.6.0
+* Rubinius 1.2.3
