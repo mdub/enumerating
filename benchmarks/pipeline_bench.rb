@@ -12,7 +12,7 @@ if RUBY19
   end
 end
 
-require "enumerable_fu"
+require "enumerating"
 
 require 'facets'
 
@@ -56,7 +56,7 @@ end
   array.select { |x| x.even? }.collect { |x| x*x }
 end
 
-benchmark "enumerable_fu", @control do 
+benchmark "enumerating", @control do 
   array.selecting { |x| x.even? }.collecting { |x| x*x }
 end
 

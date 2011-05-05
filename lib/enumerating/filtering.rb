@@ -1,6 +1,6 @@
 require 'set'
 
-module EnumerableFu
+module Enumerating
 
   class Filter
 
@@ -23,7 +23,7 @@ end
 module Enumerable
   
   def collecting
-    EnumerableFu::Filter.new do |output|
+    Enumerating::Filter.new do |output|
       each do |element|
         output.call yield(element)
       end
@@ -31,7 +31,7 @@ module Enumerable
   end
   
   def selecting
-    EnumerableFu::Filter.new do |output|
+    Enumerating::Filter.new do |output|
       each do |element|
         output.call(element) if yield(element)
       end
@@ -39,7 +39,7 @@ module Enumerable
   end
   
   def rejecting
-    EnumerableFu::Filter.new do |output|
+    Enumerating::Filter.new do |output|
       each do |element|
         output.call(element) unless yield(element)
       end
@@ -47,7 +47,7 @@ module Enumerable
   end
   
   def uniqing
-    EnumerableFu::Filter.new do |output|
+    Enumerating::Filter.new do |output|
       seen = Set.new
       each do |element|
         output.call(element) if seen.add?(element)
@@ -56,7 +56,7 @@ module Enumerable
   end
 
   def uniqing_by
-    EnumerableFu::Filter.new do |output|
+    Enumerating::Filter.new do |output|
       seen = Set.new
       each do |element|
         output.call(element) if seen.add?(yield element)

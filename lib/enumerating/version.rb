@@ -1,3 +1,3 @@
-module EnumerableFu
+module Enumerating
   VERSION = "0.1.1".freeze
 end

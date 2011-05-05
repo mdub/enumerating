@@ -34,4 +34,4 @@ module Enumerable
   
 end
 
-require "enumerable_fu"
+require "enumerating"

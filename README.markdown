@@ -1,10 +1,10 @@
-EnumerableFu
-============
+Enumerating
+===========
 
 Lazy "filtering" and transforming
 ---------------------------------
 
-EnumerableFu extends Enumerable with "lazy" versions of various common operations:
+Enumerating extends Enumerable with "lazy" versions of various common operations:
 
 * `#selecting` selects elements that pass a test block (like `Enumerable#select`)
 * `#rejecting` selects elements that fail a test block (like `Enumerable#reject`)
@@ -43,7 +43,7 @@ Same result, but notice how only the first five inputs were ever squared; just e
 Lazy pipelines
 --------------
 
-By combining two or more of the lazy operations provided by EnumerableFu, you can create an efficient "pipeline", e.g.
+By combining two or more of the lazy operations provided by Enumerating, you can create an efficient "pipeline", e.g.
 
     # enumerate all users
     users = User.to_enum(:find_each)
@@ -62,25 +62,25 @@ Because each processing step proceeds in parallel, without creation of intermedi
 Lazy combination of Enumerables
 -------------------------------
 
-EnumerableFu also provides some interesting ways to combine several Enumerable collections to create a new collection.  Again, these operate "lazily".
+Enumerating also provides some interesting ways to combine several Enumerable collections to create a new collection.  Again, these operate "lazily".
 
-`EnumerableFu.zipping` pulls elements from a number of collections in parallel, yielding each group.
+`Enumerating.zipping` pulls elements from a number of collections in parallel, yielding each group.
 
     array1 = [1,3,6]
     array2 = [2,4,7]
-    EnumerableFu.zipping(array1, array2)    # generates: [1,2], [3,4], [6,7]
+    Enumerating.zipping(array1, array2)    # generates: [1,2], [3,4], [6,7]
 
-`EnumerableFu.merging` merges multiple collections, preserving sort-order.  The inputs are assumed to be sorted already.
+`Enumerating.merging` merges multiple collections, preserving sort-order.  The inputs are assumed to be sorted already.
 
     array1 = [1,4,5]
     array2 = [2,3,6]
-    EnumerableFu.merging(array1, array2)    # generates: 1, 2, 3, 4, 5, 6
+    Enumerating.merging(array1, array2)    # generates: 1, 2, 3, 4, 5, 6
 
-Variant `EnumerableFu.merging_by` uses a block to determine sort-order.
+Variant `Enumerating.merging_by` uses a block to determine sort-order.
 
     array1 = %w(a dd cccc)
     array2 = %w(eee bbbbb)
-    EnumerableFu.merging_by(array1, array2) { |x| x.length }
+    Enumerating.merging_by(array1, array2) { |x| x.length }
                                             # generates: %w(a dd eee cccc bbbbb)
 
 Same but different
@@ -88,10 +88,10 @@ Same but different
 
 There are numerous similar implementations of lazy operations on Enumerables.  A nod, in particular, to:
 
-* Greg Spurrier's gem "`lazing`" (from which EnumerableFu borrows the convention of using "..ing" to name lazy methods)
+* Greg Spurrier's gem "`lazing`" (from which Enumerating borrows the convention of using "..ing" to name lazy methods)
 * `Enumerable#defer` from the Ruby Facets library
 
-In the end, though, I felt the world deserved another.  EnumerableFu's selling point is that it's basic (filtering/transforming) operations work on any Ruby, whereas most of the other implementations depend on the availablity of Ruby 1.9's "`Enumerator`".  EnumerableFu has been tested on:
+In the end, though, I felt the world deserved another.  Enumerating's selling point is that it's basic (filtering/transforming) operations work on any Ruby, whereas most of the other implementations depend on the availablity of Ruby 1.9's "`Enumerator`".  Enumerating has been tested on:
 
 * MRI 1.8.6
 * MRI 1.8.7

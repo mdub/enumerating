@@ -1,4 +1,4 @@
-module EnumerableFu
+module Enumerating
 
   class Merger
 
@@ -57,14 +57,14 @@ module EnumerableFu
 
 end
 
-class << EnumerableFu
+class << Enumerating
   
   def merging(*enumerables)
-    EnumerableFu::Merger.new(enumerables)
+    Enumerating::Merger.new(enumerables)
   end
 
   def merging_by(*enumerables, &block)
-    EnumerableFu::Merger.new(enumerables, &block)
+    Enumerating::Merger.new(enumerables, &block)
   end
   
 end

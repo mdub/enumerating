@@ -1,4 +1,4 @@
-module EnumerableFu
+module Enumerating
 
   class Zipper
 
@@ -27,10 +27,10 @@ module EnumerableFu
 
 end
 
-class << EnumerableFu
+class << Enumerating
 
   def zipping(*enumerables)
-    EnumerableFu::Zipper.new(enumerables)
+    Enumerating::Zipper.new(enumerables)
   end
 
 end
