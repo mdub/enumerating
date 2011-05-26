@@ -10,6 +10,7 @@ Enumerating extends Enumerable with "lazy" versions of various common operations
 * `#rejecting` selects elements that fail a test block (like `Enumerable#reject`)
 * `#collecting` applies a transforming block to each element (like `Enumerable#collect`)
 * `#uniqing` discards duplicates (like `Enumerable#uniq`)
+* `#taking`, `#taking_while`, `#dropping` and `#dropping_while` also do what you expect
 
 We say the "...ing" variants are "lazy", because they defer per-element processing until the result is used.  They return Enumerable "result proxy" objects, rather than Arrays, and only perform the actual filtering (or transformation) as the result proxy is enumerated.
 
@@ -69,6 +70,13 @@ Enumerating also provides some interesting ways to combine several Enumerable co
     array1 = [1,3,6]
     array2 = [2,4,7]
     Enumerating.zipping(array1, array2)    # generates: [1,2], [3,4], [6,7]
+
+`Enumerating.concatenating` concatenates collections.
+
+    array1 = [1,3,6]
+    array2 = [2,4,7]
+    Enumerating.concatenating(array1, array2)
+                                          # generates: [1,3,6,2,4,7]
 
 `Enumerating.merging` merges multiple collections, preserving sort-order.  The inputs are assumed to be sorted already.
 
