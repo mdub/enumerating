@@ -64,5 +64,25 @@ module Enumerable
     end
   end
   
+  def taking(n)
+    Enumerating::Filter.new do |output|
+      if n > 0
+        each_with_index do |element, index|
+          output.call(element) 
+          break if index + 1 == n
+        end
+      end
+    end
+  end
+  
+  def dropping(n)
+    Enumerating::Filter.new do |output|
+      each_with_index do |element, index|
+        next if index < n
+        output.call(element)
+      end
+    end
+  end
+  
 end
 

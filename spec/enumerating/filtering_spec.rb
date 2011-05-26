@@ -70,5 +70,35 @@ describe Enumerable do
     end
 
   end
+  
+  describe "#taking" do
+    
+    it "includes the specified number" do
+      @array = [1,2,3,4]
+      @array.taking(3).to_a.should == [1,2,3]
+    end
+    
+    it "is lazy" do
+      [1,2].with_time_bomb.taking(2).to_a.should == [1,2]
+    end
+    
+    it "copes with 0" do
+      [].with_time_bomb.taking(0).to_a.should == []
+    end
+    
+  end
+  
+  describe "#dropping" do
+    
+    it "excludes the specified number" do
+      @array = [1,2,3,4]
+      @array.dropping(2).to_a.should == [3,4]
+    end
+    
+    it "is lazy" do
+      [1,2,3,4].with_time_bomb.dropping(2).taking(1).to_a.should == [3]
+    end
+    
+  end
 
 end
