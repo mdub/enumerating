@@ -75,11 +75,30 @@ module Enumerable
     end
   end
   
+  def taking_while
+    Enumerating::Filter.new do |output|
+      each do |element|
+        break unless yield(element)
+        output.call(element)
+      end
+    end
+  end
+  
   def dropping(n)
     Enumerating::Filter.new do |output|
       each_with_index do |element, index|
         next if index < n
         output.call(element)
+      end
+    end
+  end
+  
+  def dropping_while
+    Enumerating::Filter.new do |output|
+      taking = false
+      each do |element|
+        taking ||= !yield(element)
+        output.call(element) if taking
       end
     end
   end

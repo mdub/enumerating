@@ -88,6 +88,19 @@ describe Enumerable do
     
   end
   
+  describe "#taking_while" do
+    
+    it "takes elements as long as the predicate is true" do
+      @array = [2,4,6,3]
+      @array.taking_while(&:even?).to_a.should == [2,4,6]
+    end
+    
+    it "is lazy" do
+      [2,3].with_time_bomb.taking_while(&:even?).to_a.should == [2]
+    end
+    
+  end
+  
   describe "#dropping" do
     
     it "excludes the specified number" do
@@ -97,6 +110,19 @@ describe Enumerable do
     
     it "is lazy" do
       [1,2,3,4].with_time_bomb.dropping(2).taking(1).to_a.should == [3]
+    end
+    
+  end
+  
+  describe "#dropping_while" do
+    
+    it "drops elements as long as the predicate is true" do
+      @array = [2,4,6,3,4]
+      @array.dropping_while(&:even?).to_a.should == [3,4]
+    end
+    
+    it "is lazy" do
+      [2,3].with_time_bomb.dropping_while(&:even?).taking(1).to_a.should == [3]
     end
     
   end
