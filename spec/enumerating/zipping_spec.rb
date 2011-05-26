@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe Enumerating, :needs_enumerators => true do
 
-  describe "#zipping" do
+  describe ".zipping" do
 
     it "zips together multiple Enumerables" do
       @array1 = [1,3,6]
