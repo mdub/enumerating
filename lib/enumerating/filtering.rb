@@ -21,7 +21,7 @@ module Enumerating
 end
 
 module Enumerable
-  
+
   def collecting
     Enumerating::Filter.new do |output|
       each do |element|
@@ -29,7 +29,9 @@ module Enumerable
       end
     end
   end
-  
+
+  alias mapping collecting
+
   def selecting
     Enumerating::Filter.new do |output|
       each do |element|
@@ -37,7 +39,7 @@ module Enumerable
       end
     end
   end
-  
+
   def rejecting
     Enumerating::Filter.new do |output|
       each do |element|
@@ -45,7 +47,7 @@ module Enumerable
       end
     end
   end
-  
+
   def uniqing
     Enumerating::Filter.new do |output|
       seen = Set.new
@@ -63,18 +65,18 @@ module Enumerable
       end
     end
   end
-  
+
   def taking(n)
     Enumerating::Filter.new do |output|
       if n > 0
         each_with_index do |element, index|
-          output.call(element) 
+          output.call(element)
           break if index + 1 == n
         end
       end
     end
   end
-  
+
   def taking_while
     Enumerating::Filter.new do |output|
       each do |element|
@@ -83,7 +85,7 @@ module Enumerable
       end
     end
   end
-  
+
   def dropping(n)
     Enumerating::Filter.new do |output|
       each_with_index do |element, index|
@@ -92,7 +94,7 @@ module Enumerable
       end
     end
   end
-  
+
   def dropping_while
     Enumerating::Filter.new do |output|
       taking = false
@@ -102,6 +104,6 @@ module Enumerable
       end
     end
   end
-  
+
 end
 
