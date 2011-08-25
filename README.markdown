@@ -8,7 +8,7 @@ Enumerating extends Enumerable with "lazy" versions of various common operations
 
 * `#selecting` selects elements that pass a test block (like `Enumerable#select`)
 * `#rejecting` selects elements that fail a test block (like `Enumerable#reject`)
-* `#collecting` applies a transforming block to each element (like `Enumerable#collect`)
+* `#collecting`/`#mapping` applies a transforming block to each element (like `Enumerable#collect` and `#map`)
 * `#uniqing` discards duplicates (like `Enumerable#uniq`)
 * `#taking`, `#taking_while`, `#dropping` and `#dropping_while` also do what you expect
 
@@ -28,7 +28,7 @@ Perhaps an example would help.  Consider the following snippet:
     9^2 = 81
     10^2 = 100
     => [1, 4, 9, 16]
-    
+
 Here we use plain old `#collect` to square a bunch of numbers, and then grab the ones less than 20. We can do the same thing using `#collecting`, rather than `#collect`:
 
     >> (1..10).collecting { |x| puts "#{x}^2 = #{x*x}"; x*x }.take_while { |x| x < 20 }
