@@ -7,8 +7,10 @@ Lazy "filtering" and transforming
 Enumerating extends Enumerable with "lazy" versions of various common operations:
 
 * `#selecting` selects elements that pass a test block (like `Enumerable#select`)
+* `#finding_all` is an alias for `#selecting` (like `Enumerable#find_all`)
 * `#rejecting` selects elements that fail a test block (like `Enumerable#reject`)
-* `#collecting`/`#mapping` applies a transforming block to each element (like `Enumerable#collect` and `#map`)
+* `#collecting` applies a transforming block to each element (like `Enumerable#collect`)
+* `#mapping` is an alias for `#collecting` (like `Enumerable#map`)
 * `#uniqing` discards duplicates (like `Enumerable#uniq`)
 * `#taking`, `#taking_while`, `#dropping` and `#dropping_while` also do what you expect
 

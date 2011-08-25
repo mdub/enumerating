@@ -40,6 +40,8 @@ module Enumerable
     end
   end
 
+  alias finding_all selecting
+
   def rejecting
     Enumerating::Filter.new do |output|
       each do |element|
