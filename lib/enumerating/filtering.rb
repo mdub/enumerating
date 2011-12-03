@@ -107,5 +107,8 @@ module Enumerable
     end
   end
 
-end
+  def [](n)
+    dropping(n).first
+  end
 
+end
