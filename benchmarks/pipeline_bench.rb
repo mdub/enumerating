@@ -2,9 +2,7 @@ require 'benchmark'
 
 $: << File.expand_path("../../lib", __FILE__)
 
-RUBY19 = RUBY_VERSION =~ /^1\.9/
-
-if RUBY19
+if defined?(Fiber)
   require "lazing"
   module Enumerable
     alias :lazing_select :selecting
@@ -52,17 +50,23 @@ def benchmark(description, control_result = nil)
   result
 end
 
-@control = benchmark "conventional" do
+@control = benchmark "conventional (eager)" do
   array.select { |x| x.even? }.collect { |x| x*x }
 end
 
-benchmark "enumerating", @control do 
+benchmark "enumerating", @control do
   array.selecting { |x| x.even? }.collecting { |x| x*x }
 end
 
-if RUBY19
+if defined?(Fiber)
   benchmark "lazing", @control do
     array.lazing_select { |x| x.even? }.lazing_collect { |x| x*x }
+  end
+end
+
+if array.respond_to?(:lazy)
+  benchmark "ruby2 Enumerable#lazy", @control do
+    array.lazy.select { |x| x.even? }.lazy.collect { |x| x*x }
   end
 end
 
