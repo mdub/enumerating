@@ -29,6 +29,7 @@ printf "%12s", "to_a"
 puts ""
 
 def measure(&block)
+  GC.start
   begin
     printf "%12.5f", Benchmark.realtime(&block)
   rescue
@@ -56,6 +57,10 @@ end
 
 benchmark "enumerating", @control do
   array.selecting { |x| x.even? }.collecting { |x| x*x }
+end
+
+benchmark "enumerating lazily", @control do
+  array.lazily.select { |x| x.even? }.collect { |x| x*x }
 end
 
 if defined?(Fiber)
