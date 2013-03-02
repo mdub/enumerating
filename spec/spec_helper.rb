@@ -26,12 +26,12 @@ class WithTimeBomb
 end
 
 module Enumerable
-  
+
   # extend an Enumerable to throw an exception after last element
   def with_time_bomb
     WithTimeBomb.new(self)
   end
-  
+
 end
 
 require "enumerating"
