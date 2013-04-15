@@ -16,13 +16,17 @@ describe Enumerable do
       [1,2,3].with_time_bomb.threading(2) { |x| x * 2 }.first.should == 2
     end
 
+    def round(n)
+      (n * 100).round.to_f / 100.0
+    end
+
     it "runs the specified number of threads in parallel" do
       delays = [0.01, 0.01, 0.01]
       start = Time.now
       delays.threading(2) do |delay|
         sleep(delay)
       end.to_a
-      (Time.now - start).round(2).should eq(0.01 * 2)
+      round(Time.now - start).should eq(0.01 * 2)
     end
 
     it "acts as a sliding window" do
@@ -30,7 +34,7 @@ describe Enumerable do
       start = Time.now
       elapsed_times = delays.threading(3) do |delay|
         sleep(delay)
-        (Time.now - start).round(2)
+        round(Time.now - start)
       end
       elapsed_times.to_a.should eq([0.05, 0.04, 0.03, 0.07, 0.06])
     end
