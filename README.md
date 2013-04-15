@@ -61,7 +61,22 @@ By combining two or more of the lazy operations provided by Enumerating, you can
     # resolve
     companies.to_a              #=> ["Disney"]
 
-Because each processing step proceeds in parallel, without creation of intermediate collections (Arrays), you can efficiently operate on large (or even infinite) Enumerable collections.
+Because the steps in the pipeline operate in parallel, without creation of intermediate collections (Arrays), you can efficiently operate on large (or even infinite) Enumerable collections.
+
+Multi-threaded processing
+-------------------------
+
+`Enumerable#threading` is a multi-threaded version of `Enumerable#collecting`, allowing multiple Ruby Thread's to be used to process elements of an collection.  It requires a numeric argument specifying the maximum number of Threads to use. 
+
+    start = Time.now
+    [5,6,7,8].threading(4) do |delay|
+      sleep(delay)
+    end.to_a
+    (Time.now - start).to_i     #=> 8
+
+Outputs will be yielded in the expected order, making it a drop-in replacement for `#collecting`.  
+
+Unlike some other "parallel map" implementations, the output of `#threading` is lazy, though it does need to pre-fetch elements from the source collection as required to start Threads.
 
 Lazy combination of Enumerables
 -------------------------------
