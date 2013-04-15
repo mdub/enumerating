@@ -9,7 +9,8 @@ module Enumerating
       @buffer_size = buffer_size
     end
 
-    def each
+    def each(&block)
+      return @source.each(&block) if @buffer_size <= 0
       buffered_elements = []
       i = 0
       @source.each do |element|

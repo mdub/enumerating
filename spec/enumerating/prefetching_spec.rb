@@ -46,6 +46,16 @@ describe Enumerable do
       counter.number_yielded.should eq(3)
     end
 
+    context "with a buffer size of zero" do
+
+      it "does not pre-fetch anything" do
+        counter = Counter.new(source)
+        counter.prefetching(0).take(1)
+        counter.number_yielded.should eq(1)
+      end
+
+    end
+
     context "with a buffer bigger than the source Enumerable" do
 
       it "yields all items" do
