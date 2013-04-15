@@ -1,3 +1,5 @@
+require "spec_helper"
+
 describe Enumerable do
 
   Counter = Class.new do
@@ -55,5 +57,3 @@ describe Enumerable do
   end
 
 end
-
-require "spec_helper"
