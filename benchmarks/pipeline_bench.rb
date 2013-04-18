@@ -2,18 +2,6 @@ require 'benchmark'
 
 $: << File.expand_path("../../lib", __FILE__)
 
-if defined?(Fiber)
-  require "lazing"
-  module Enumerable
-    alias :lazing_select :selecting
-    alias :lazing_collect :collecting
-  end
-end
-
-require "enumerating"
-
-require 'facets'
-
 array = (1..100000).to_a
 
 # Test scenario:
@@ -54,22 +42,53 @@ end
   array.select { |x| x.even? }.collect { |x| x*x }
 end
 
-benchmark "enumerating", @control do
-  array.selecting { |x| x.even? }.collecting { |x| x*x }
+def can_require?(library)
+  require(library)
+  true
+rescue LoadError
+  printf "%-36s ----------------- N/A -----------------\n", library
+  false
 end
 
-if defined?(Fiber)
+if can_require?("enumerating")
+
+  benchmark "enumerating", @control do
+    array.selecting { |x| x.even? }.collecting { |x| x*x }
+  end
+
+end
+
+if defined?(Fiber) && can_require?("lazing")
+
+  module Enumerable
+    alias :lazing_select :selecting
+    alias :lazing_collect :collecting
+  end
+
   benchmark "lazing", @control do
     array.lazing_select { |x| x.even? }.lazing_collect { |x| x*x }
   end
+
 end
 
 if array.respond_to?(:lazy)
+
   benchmark "ruby2 Enumerable#lazy", @control do
     array.lazy.select { |x| x.even? }.lazy.collect { |x| x*x }
   end
+
+elsif can_require?("backports/2.0.0/enumerable")
+
+  benchmark "backports Enumerable#lazy", @control do
+    array.lazy.select { |x| x.even? }.lazy.collect { |x| x*x }
+  end
+
 end
 
-benchmark "facets Enumerable#defer", @control do
-  array.defer.select { |x| x.even? }.collect { |x| x*x }
+if can_require? "facets"
+
+  benchmark "facets Enumerable#defer", @control do
+    array.defer.select { |x| x.even? }.collect { |x| x*x }
+  end
+
 end
