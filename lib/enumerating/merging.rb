@@ -22,7 +22,7 @@ module Enumerating
       end
 
       def each
-        while true do
+        loop do
           discard_empty_enumerators
           break if @enumerators.empty?
           yield next_enumerator.next
@@ -58,7 +58,7 @@ module Enumerating
 end
 
 class << Enumerating
-  
+
   def merging(*enumerables)
     Enumerating::Merger.new(enumerables)
   end
@@ -66,5 +66,5 @@ class << Enumerating
   def merging_by(*enumerables, &block)
     Enumerating::Merger.new(enumerables, &block)
   end
-  
+
 end

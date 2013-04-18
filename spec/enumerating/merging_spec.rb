@@ -13,8 +13,8 @@ describe Enumerating, :needs_enumerators => true do
     end
 
     it "is lazy" do
-      @enum1 = [1,3]
-      @enum2 = [2,4].with_time_bomb
+      @enum1 = [1,3,6]
+      @enum2 = [2,4,7].with_time_bomb
       @merge = Enumerating.merging(@enum1, @enum2)
       @merge.take(4).should == [1,2,3,4]
     end
