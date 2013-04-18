@@ -82,6 +82,10 @@ describe Enumerable do
       [1,2].with_time_bomb.taking(2).to_a.should == [1,2]
     end
 
+    it "is stackable" do
+      [1,2].taking(2).taking(2).to_a.should == [1,2]
+    end
+
     it "copes with 0" do
       [].with_time_bomb.taking(0).to_a.should == []
     end
