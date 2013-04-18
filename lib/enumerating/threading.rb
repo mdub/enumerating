@@ -39,13 +39,22 @@ module Enumerating
 
   end
 
+  class << self
+
+    def threading(source, max_threads, &block)
+      threads = ThreadStarter.new(source, block)
+      prefetched_threads = Prefetcher.new(threads, max_threads - 1)
+      Enumerating::ThreadJoiner.new(prefetched_threads)
+    end
+
+  end
+
 end
 
 module Enumerable
 
   def threading(max_threads, &block)
-    threads = Enumerating::ThreadStarter.new(self, block)
-    Enumerating::ThreadJoiner.new(threads.prefetching(max_threads - 1))
+    Enumerating.threading(self, max_threads, &block)
   end
 
 end
