@@ -10,10 +10,14 @@ module Enumerating
       @generator = generator
     end
 
+    DONE = "done-#{self.object_id}".to_sym
+
     def each
       return to_enum unless block_given?
       yielder = proc { |x| yield x }
-      @generator.call(yielder)
+      catch DONE do
+        @generator.call(yielder)
+      end
     end
 
   end
@@ -73,7 +77,7 @@ module Enumerable
       if n > 0
         each_with_index do |element, index|
           output.call(element)
-          break if index + 1 == n
+          throw Enumerating::Filter::DONE if index + 1 == n
         end
       end
     end
@@ -82,7 +86,7 @@ module Enumerable
   def taking_while
     Enumerating::Filter.new do |output|
       each do |element|
-        break unless yield(element)
+        throw Enumerating::Filter::DONE unless yield(element)
         output.call(element)
       end
     end
